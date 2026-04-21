@@ -23,7 +23,7 @@ Executes a phase plan produced by `opencode-plan-phase`. The default executor is
 - `--dry-run`: parse and print the lane schedule without editing.
 - `--parallel`: allowed only when the user explicitly requests parallel worker execution.
 
-If no plan path is explicit, first check the current repo and branch handoff from `opencode-plan-phase` using `runtime-state.md`: read `~/.config/opencode/skills/opencode-plan-phase/handoffs/<repo_hash>/<branch_slug>/latest.md`, validate `from`, `repo`, `repo_root`, `branch`, `branch_slug`, `commit`, and `artifact`, then use the artifact only if it exists under the current repo root. Ignore missing or mismatched handoffs unless the user explicitly asks to reuse cross-branch state.
+If no plan path is explicit, first check the current repo and branch handoff from `opencode-plan-phase` using `opencode-config/shared/runtime-state.md`: read `~/.config/opencode/skills/opencode-plan-phase/handoffs/<repo_hash>/<branch_slug>/latest.md`, validate `from`, `repo`, `repo_root`, `branch`, `branch_slug`, `commit`, and `artifact`, then use the artifact only if it exists under the current repo root. Ignore missing or mismatched handoffs unless the user explicitly asks to reuse cross-branch state.
 
 ## Preflight
 
@@ -36,7 +36,11 @@ If no plan path is explicit, first check the current repo and branch handoff fro
    - owned files;
    - task lists;
    - verification commands.
-5. For `--dry-run`, report the topological lane order and stop.
+5. Validate producer dependencies:
+   - any lane that consumes another lane's findings, interfaces, or artifacts must list that producer lane in `Depends on`;
+   - any lane that writes a synthesized artifact must be downstream of every producer lane it summarizes;
+   - if dependencies are missing, stop and require a plan correction before execution.
+6. For `--dry-run`, report the topological lane order and stop.
 
 ## Execution Workflow
 
@@ -57,7 +61,7 @@ If no plan path is explicit, first check the current repo and branch handoff fro
 
 ## Optional Worker Fanout
 
-Use worker subagents only when the user explicitly authorizes parallel agent work and the ready lanes are disjoint.
+Use worker subagents only when the user explicitly authorizes parallel agent work and the DAG-ready lanes are disjoint.
 
 For every worker brief:
 
@@ -87,7 +91,7 @@ Report:
 - commands not run and why;
 - follow-up risks or manual checks.
 
-If writing self-improvement state, follow `runtime-state.md` and use OpenCode paths only:
+If writing self-improvement state, follow `opencode-config/shared/runtime-state.md` and use OpenCode paths only:
 
 - Reflection: `~/.config/opencode/skills/opencode-execute-phase/reflections/<repo_hash>/<branch_slug>/<run_id>.md`
 - Handoff: `~/.config/opencode/skills/opencode-execute-phase/handoffs/<repo_hash>/<branch_slug>/<run_id>.md`

@@ -27,7 +27,7 @@ Plans one roadmap phase for OpenCode execution. It converts a phase section into
 - Phase selector: alias, phase number, or fuzzy phase name.
 - Output path: default `plans/phase-plan-<VERSION>-<PHASE_ALIAS>.md`.
 
-If no roadmap path is explicit, first check the current repo and branch handoff from `opencode-phase-roadmap-builder` using `runtime-state.md`: read `~/.config/opencode/skills/opencode-phase-roadmap-builder/handoffs/<repo_hash>/<branch_slug>/latest.md`, validate `from`, `repo`, `repo_root`, `branch`, `branch_slug`, `commit`, and `artifact`, then use the artifact only if it exists under the current repo root. Ignore missing or mismatched handoffs unless the user explicitly asks to reuse cross-branch state.
+If no roadmap path is explicit, first check the current repo and branch handoff from `opencode-phase-roadmap-builder` using `opencode-config/shared/runtime-state.md`: read `~/.config/opencode/skills/opencode-phase-roadmap-builder/handoffs/<repo_hash>/<branch_slug>/latest.md`, validate `from`, `repo`, `repo_root`, `branch`, `branch_slug`, `commit`, and `artifact`, then use the artifact only if it exists under the current repo root. Ignore missing or mismatched handoffs unless the user explicitly asks to reuse cross-branch state.
 
 ## Workflow
 
@@ -43,7 +43,10 @@ If no roadmap path is explicit, first check the current repo and branch handoff 
    - provided and consumed interfaces are explicit;
    - dependencies form an acyclic lane DAG;
    - every lane has test, implementation, and verification tasks.
-6. Add a terminal docs lane for cross-cutting documentation review. If no docs change, the lane records that decision.
+6. Add terminal synthesis lanes deliberately:
+   - any docs, truth-table, readiness matrix, release summary, or other synthesized artifact writer must list every producer lane under `Depends on` and every consumed finding under `Interfaces consumed`;
+   - final artifact writer lanes are reducers, not "whichever lane finishes last"; mark them `Parallel-safe: no`;
+   - if no docs change is needed, the docs lane records that decision after depending on every lane it reviews.
 7. Add verification:
    - lane-specific commands;
    - whole-phase regression commands;
@@ -88,6 +91,8 @@ Use these headings:
 - No lane owns the same path or glob as another lane.
 - Every consumed interface is produced upstream or explicitly pre-existing.
 - The lane DAG is acyclic.
+- Any lane that writes a synthesized artifact depends on every lane whose outputs it consumes.
+- No plan relies on lane numbering, prose ordering, or "last lane" wording to sequence final artifact writes.
 - Tests are named for every changed behavior.
 - Single-writer files are isolated in a preamble lane.
 - Documentation impact is consciously handled.
@@ -96,7 +101,7 @@ Use these headings:
 
 In Default mode, write the plan with the active session's file-editing tool and report the plan path plus the recommended `opencode-execute-phase` invocation. Do not commit unless requested.
 
-If writing self-improvement state, follow `runtime-state.md` and use OpenCode paths only:
+If writing self-improvement state, follow `opencode-config/shared/runtime-state.md` and use OpenCode paths only:
 
 - Reflection: `~/.config/opencode/skills/opencode-plan-phase/reflections/<repo_hash>/<branch_slug>/<run_id>.md`
 - Handoff: `~/.config/opencode/skills/opencode-plan-phase/handoffs/<repo_hash>/<branch_slug>/<run_id>.md`
