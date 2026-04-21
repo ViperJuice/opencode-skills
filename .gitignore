@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Editor
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Local install/testing
+.claude/
+.codex/
+.gemini/
+.opencode/
+
+# Skill runtime artifacts
+planning-chain/*/reflections/
+planning-chain/*/handoffs/
+planning-chain/*/plans/
+meta/*/reflections/
+meta/*/handoffs/
+meta/*/plans/
+efficiency-kit/*/reflections/
+efficiency-kit/*/handoffs/
+efficiency-kit/*/plans/
