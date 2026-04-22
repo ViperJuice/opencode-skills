@@ -108,7 +108,7 @@ Use this shape so `opencode-plan-phase` can parse it:
 
 In Default mode, write the roadmap with the active session's file-editing tool, then report the artifact path and the next suggested `opencode-plan-phase` invocation. Do not commit unless the user asked for a commit.
 
-If writing self-improvement state, follow `runtime-state.md` and use OpenCode paths only:
+If writing self-improvement state, follow `opencode-config/shared/runtime-state.md` and use OpenCode paths only:
 
 - Reflection: `~/.config/opencode/skills/opencode-phase-roadmap-builder/reflections/<repo_hash>/<branch_slug>/<run_id>.md`
 - Handoff: `~/.config/opencode/skills/opencode-phase-roadmap-builder/handoffs/<repo_hash>/<branch_slug>/<run_id>.md`

@@ -68,4 +68,9 @@ Downstream readers must resolve handoffs in this order:
 
 ## Reflection Aggregation
 
-Reflection aggregators must scan recursively under the framework runtime path and this repo's `planning-chain/`, `meta/`, and `efficiency-kit/` directories when present. Exclude any path with an `archive/` component. When archiving consumed reflections, move each file into an `archive/` directory under the same repo and branch subtree, preserving branch isolation.
+Reflection aggregators must scan recursively under:
+
+- `~/.config/opencode/skills/<skill>/reflections/**`
+- `opencode-config/skills/<skill>/reflections/**`
+
+Exclude any path with an `archive/` component. When archiving consumed reflections, move each file into an `archive/` directory under the same repo and branch subtree, preserving branch isolation.

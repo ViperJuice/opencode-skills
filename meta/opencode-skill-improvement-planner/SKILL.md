@@ -11,9 +11,9 @@ Aggregates reflection files for OpenCode skills and produces a structured improv
 
 - Planning only. Do not modify `SKILL.md` files.
 - Prefer OpenCode skill state under `~/.config/opencode/skills/<skill>/reflections/**`.
-- Also inspect source-controlled reflections under `planning-chain and meta/opencode-*/reflections/**` when present.
+- Also inspect source-controlled reflections under `opencode-config/skills/opencode-*/reflections/**` when present.
 - Exclude any path with an `archive/` component.
-- Follow the recursive reflection rules in `runtime-state.md`.
+- Follow the recursive reflection rules in `opencode-config/shared/runtime-state.md`.
 - Act only on recurring evidence unless the user explicitly asks to apply one-off feedback.
 - Do not spawn subagents unless the user explicitly asks for delegated analysis.
 
@@ -90,7 +90,7 @@ reflections_consumed:
 
 In Default mode, write the plan only if the user asked for an artifact. Otherwise summarize the recommendations. Do not archive reflections; that is the editor's job.
 
-If writing self-improvement state, follow `runtime-state.md` and use OpenCode paths only:
+If writing self-improvement state, follow `opencode-config/shared/runtime-state.md` and use OpenCode paths only:
 
 - Reflection: `~/.config/opencode/skills/opencode-skill-improvement-planner/reflections/<repo_hash>/<branch_slug>/<run_id>.md`
 - Handoff: `~/.config/opencode/skills/opencode-skill-improvement-planner/handoffs/<repo_hash>/<branch_slug>/<run_id>.md`

@@ -35,6 +35,10 @@ Default install target: `$HOME/.config/opencode/skills`.
 
 These framework-specific skills are intentionally not installed into `~/.agents/skills`. That directory should be reserved for future skills that are genuinely platform-neutral.
 
+## Permission settings
+
+Dotfiles manages OpenCode runtime permissions in `bootstrap.sh` by merging `permission.external_directory` and `permission.edit` rules into `$HOME/.config/opencode/opencode.json`. Both rules are needed for paths outside the current workspace. Keep them limited to generated `reflections/`, `handoffs/`, and `plans/` under `$HOME/.config/opencode/skills/<skill>/` and the dotfiles `opencode-config/skills` symlink target.
+
 ## Style
 
 Keep instructions directive-first. Avoid long narrative justification, war stories, or benchmark claims. If behavior differs between frameworks, do not hide that behind a generic skill; make an explicit framework-specific port.

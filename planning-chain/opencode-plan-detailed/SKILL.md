@@ -87,7 +87,7 @@ Do not run the verification commands while planning unless the user explicitly a
 
 If writing an artifact, use the active session's file-editing tool, report the path, and do not commit unless requested.
 
-If writing self-improvement state, follow `runtime-state.md` and use OpenCode paths only:
+If writing self-improvement state, follow `opencode-config/shared/runtime-state.md` and use OpenCode paths only:
 
 - Reflection: `~/.config/opencode/skills/opencode-plan-detailed/reflections/<repo_hash>/<branch_slug>/<run_id>.md`
 - Handoff: `~/.config/opencode/skills/opencode-plan-detailed/handoffs/<repo_hash>/<branch_slug>/<run_id>.md`

@@ -22,7 +22,7 @@ Applies a structured improvement plan to OpenCode skill files. It is deliberatel
 - Plan path: explicit path, or latest `~/.config/opencode/skills/opencode-skill-improvement-planner/plans/plan-v*.md`.
 - `--dry-run`: parse and report intended edits without changing files.
 
-If no plan path is explicit, first check the current repo and branch handoff from `opencode-skill-improvement-planner` using `runtime-state.md`: read `~/.config/opencode/skills/opencode-skill-improvement-planner/handoffs/<repo_hash>/<branch_slug>/latest.md`, validate `from`, `repo`, `repo_root`, `branch`, `branch_slug`, `commit`, and `artifact`, then use the artifact only if it exists under the current repo root. Ignore missing or mismatched handoffs unless the user explicitly asks to reuse cross-branch state.
+If no plan path is explicit, first check the current repo and branch handoff from `opencode-skill-improvement-planner` using `opencode-config/shared/runtime-state.md`: read `~/.config/opencode/skills/opencode-skill-improvement-planner/handoffs/<repo_hash>/<branch_slug>/latest.md`, validate `from`, `repo`, `repo_root`, `branch`, `branch_slug`, `commit`, and `artifact`, then use the artifact only if it exists under the current repo root. Ignore missing or mismatched handoffs unless the user explicitly asks to reuse cross-branch state.
 
 ## Workflow
 
@@ -34,7 +34,7 @@ If no plan path is explicit, first check the current repo and branch handoff fro
    - contradictions.
 3. If contradictions exist, stop and ask the user how to resolve them unless the plan already contains a resolution.
 4. Validate target skills:
-   - source path under `planning-chain and meta/<skill>/SKILL.md` when working in this dotfiles repo;
+   - source path under `opencode-config/skills/<skill>/SKILL.md` when working in this dotfiles repo;
    - symlink/runtime path under `~/.config/opencode/skills/<skill>/SKILL.md` only when no source path exists.
 5. For `--dry-run`, report the target files and recommendation summaries, then stop.
 6. Apply recommendations:
@@ -68,7 +68,7 @@ Report:
 - reflections archived;
 - validation commands run.
 
-If writing self-improvement state, follow `runtime-state.md` and use OpenCode paths only:
+If writing self-improvement state, follow `opencode-config/shared/runtime-state.md` and use OpenCode paths only:
 
 - Reflection: `~/.config/opencode/skills/opencode-skill-editor/reflections/<repo_hash>/<branch_slug>/<run_id>.md`
 - Handoff: `~/.config/opencode/skills/opencode-skill-editor/handoffs/<repo_hash>/<branch_slug>/<run_id>.md`
