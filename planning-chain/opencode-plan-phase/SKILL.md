@@ -99,7 +99,9 @@ Use these headings:
 
 ## Closeout
 
-In Default mode, write the plan with the active session's file-editing tool and report the plan path plus the recommended `opencode-execute-phase` invocation. Do not commit unless requested.
+In Default mode, write the plan with the active session's file-editing tool, then run `git status --short -- <plan_path>`. If the plan is untracked or modified and the user did not explicitly forbid staging, run `git add <plan_path>` and include the `_reviews.md` sibling if one was produced. Rerun `git status --short -- <plan_path>` and report `Artifact state: staged|tracked|modified|unstaged|blocked`. Do not commit unless requested.
+
+When the generated plan is ready to execute, report `Next phase: <alias> - execution ready` and `Next command: opencode-execute-phase <plan_path>`. If execution should not start yet, report `Next phase: <alias> - blocked: <reason>` and `Next command: none - <reason>`.
 
 If writing self-improvement state, follow `opencode-config/shared/runtime-state.md` and use OpenCode paths only:
 
@@ -107,4 +109,4 @@ If writing self-improvement state, follow `opencode-config/shared/runtime-state.
 - Handoff: `~/.config/opencode/skills/opencode-plan-phase/handoffs/<repo_hash>/<branch_slug>/<run_id>.md`
 - Latest handoff pointer: `~/.config/opencode/skills/opencode-plan-phase/handoffs/<repo_hash>/<branch_slug>/latest.md`
 
-Handoff frontmatter must include `from: opencode-plan-phase`, `timestamp:`, `repo:`, `repo_root:`, `branch:`, `branch_slug:`, `commit:`, `run_id:`, and `artifact:`. Update `latest.md` with the same handoff content.
+Handoff frontmatter must include `from: opencode-plan-phase`, `timestamp:`, `repo:`, `repo_root:`, `branch:`, `branch_slug:`, `commit:`, `run_id:`, `artifact:`, `artifact_state:`, `next_skill:`, `next_command:`, and `next_phase:`. Update `latest.md` with the same handoff content.

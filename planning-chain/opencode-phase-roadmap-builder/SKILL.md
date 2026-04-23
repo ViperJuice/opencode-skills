@@ -106,7 +106,9 @@ Use this shape so `opencode-plan-phase` can parse it:
 
 ## Closeout
 
-In Default mode, write the roadmap with the active session's file-editing tool, then report the artifact path and the next suggested `opencode-plan-phase` invocation. Do not commit unless the user asked for a commit.
+In Default mode, write the roadmap with the active session's file-editing tool, then run `git status --short -- <artifact>`. If the artifact is untracked or modified and the user did not explicitly forbid staging, run `git add <artifact>` and include the `_reviews.md` sibling if one was produced. Rerun `git status --short -- <artifact>` and report `Artifact state: staged|tracked|modified|unstaged|blocked`. Do not commit unless the user asked for a commit.
+
+Before final response and handoff, choose the next phase to plan from the roadmap DAG. If at least one phase is ready, report `Next phase: <alias> - <phase name>` and `Next command: opencode-plan-phase <artifact> <alias>`. If no phase should be planned next, report `Next phase: none - <reason>` and `Next command: none - <reason>`.
 
 If writing self-improvement state, follow `opencode-config/shared/runtime-state.md` and use OpenCode paths only:
 
@@ -114,4 +116,4 @@ If writing self-improvement state, follow `opencode-config/shared/runtime-state.
 - Handoff: `~/.config/opencode/skills/opencode-phase-roadmap-builder/handoffs/<repo_hash>/<branch_slug>/<run_id>.md`
 - Latest handoff pointer: `~/.config/opencode/skills/opencode-phase-roadmap-builder/handoffs/<repo_hash>/<branch_slug>/latest.md`
 
-Handoff frontmatter must include `from: opencode-phase-roadmap-builder`, `timestamp:`, `repo:`, `repo_root:`, `branch:`, `branch_slug:`, `commit:`, `run_id:`, and `artifact:`. Update `latest.md` with the same handoff content.
+Handoff frontmatter must include `from: opencode-phase-roadmap-builder`, `timestamp:`, `repo:`, `repo_root:`, `branch:`, `branch_slug:`, `commit:`, `run_id:`, `artifact:`, `artifact_state:`, `next_skill:`, `next_command:`, and `next_phase:`. Update `latest.md` with the same handoff content.

@@ -83,10 +83,22 @@ The main thread remains responsible for integrating results, reviewing diffs, ru
 
 ## Closeout
 
+Before final closeout, run `git status --short -- <plan_path> <roadmap_path>` for every consumed or updated planning artifact. If any planning artifact is untracked or modified and the user did not explicitly forbid staging, run `git add <path>` for each artifact. Rerun status and report `Artifact state: staged|tracked|modified|unstaged|blocked` for each artifact. Do not commit unless requested.
+
+Determine the next step before final response and handoff:
+
+- If the current phase is incomplete or verification failed, report `Next phase: <current alias> - blocked: <blocker>` and `Next command: none - <blocker>`.
+- If another generated phase plan is ready, report `Next phase: <next alias> - execution ready` and `Next command: opencode-execute-phase <next_plan_path>`.
+- If the roadmap has an unplanned ready phase, report `Next phase: <next alias> - planning ready` and `Next command: opencode-plan-phase <roadmap_path> <next_alias>`.
+- If the roadmap needs extension, report `Next phase: none - roadmap extension needed` and `Next command: opencode-phase-roadmap-builder <roadmap_path>`.
+- If all phases are complete, report `Next phase: none - roadmap complete` and `Next command: none - roadmap complete`.
+
 Report:
 
 - lanes completed;
 - files changed;
+- planning artifact tracking state;
+- next phase and next command;
 - verification commands and results;
 - commands not run and why;
 - follow-up risks or manual checks.
@@ -97,4 +109,4 @@ If writing self-improvement state, follow `opencode-config/shared/runtime-state.
 - Handoff: `~/.config/opencode/skills/opencode-execute-phase/handoffs/<repo_hash>/<branch_slug>/<run_id>.md`
 - Latest handoff pointer: `~/.config/opencode/skills/opencode-execute-phase/handoffs/<repo_hash>/<branch_slug>/latest.md`
 
-Handoff frontmatter must include `from: opencode-execute-phase`, `timestamp:`, `repo:`, `repo_root:`, `branch:`, `branch_slug:`, `commit:`, `run_id:`, and `artifact:`. Put open follow-up items in the body, and update `latest.md` with the same handoff content.
+Handoff frontmatter must include `from: opencode-execute-phase`, `timestamp:`, `repo:`, `repo_root:`, `branch:`, `branch_slug:`, `commit:`, `run_id:`, `artifact:`, `artifact_state:`, `next_skill:`, `next_command:`, and `next_phase:`. Put open follow-up items in the body, and update `latest.md` with the same handoff content.
